@@ -1,0 +1,47 @@
+
+
+query 1:     Refer Source Files Structure attached  in the document below and also observe the  relevant Data  available in the DATA file folder 
+
+mysql> SET @@global.sql_mode= '';
+
+customer table
+
+mysql> Create table CUSTOMER(CUST_ID BIGINT(10),CUST_F_NAME VARCHAR(40) NOT NULL,CUST_M_NAME VARCHAR(40),CUST_L_NAME 
+VARCHAR(40),CUST_CC_NO BIGINT(16),CARD_TYPE VARCHAR(10),CARD_LIMIT INT,CARD_END_DATE VARCHAR(20),CUST_SSN BIGINT(9) 
+NOT NULL,CUST_STREET VARCHAR(38),CUST_CITY VARCHAR(30) NOT NULL,CUST_STATE VARCHAR(30),CUST_COUNTRY VARCHAR(30),
+CUST_ZIP INT(7),CUST_PHONE VARCHAR(30),CUST_EMAIL VARCHAR(40));
+
+
+mysql> LOAD DATA INFILE '/var/lib/mysql-files/source_local/Customer.csv' INTO TABLE CUSTOMER FIELDS TERMINATED BY ',' LINES TERMINATED BY '\n'
+ IGNORE 1 LINES;
+
+
+mysql> SELECT * FROM CUSTOMER
+
+
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+branch table
+
+mysql> Create table BRANCH(BRANCH_CODE INT (9),BRANCH_NAME VARCHAR (25),BRANCH_STREET VARCHAR (30),BRANCH_CITY VARCHAR (30)
+ NOT NULL,BRANCH_STATE VARCHAR (30),BRANCH_ZIP INT (7),BRANCH_PHONE VARCHAR (13));
+
+
+mysql> LOAD DATA INFILE '/var/lib/mysql-files/source_local/Branch.csv' INTO TABLE BRANCH FIELDS TERMINATED BY ',' LINES TERMINATED BY '\n' 
+IGNORE 1 LINES;
+
+
+mysql> select * from BRANCH;
+
+
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+tran credit card table
+
+mysql> CREATE TABLE TRAN_CREDIT_CARD(TRAN_ID INT(5),TRAN_DATE DATE,CUST_ID BIGINT(16),CUST_CC_NO BIGINT(10),CUST_SSN INT(10),
+BRANCH_CODE INT(9),TRANSACTION_TYPE VARCHAR(30),TRANSACTION_VALUE INT(20));
+
+
+mysql> LOAD DATA INFILE '/var/lib/mysql-files/source_local/Tran_creditcard.csv' INTO TABLE TRAN_CREDIT_CARD FIELDS TERMINATED BY ',' LINES
+ TERMINATED BY '\n' IGNORE 1 LINES;
+
+
+ mysql> select * from TRAN_CREDIT_CARD;

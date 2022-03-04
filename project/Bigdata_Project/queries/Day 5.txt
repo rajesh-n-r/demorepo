@@ -1,0 +1,65 @@
+
+query 8:    In Hive create a Targetdb 
+
+hive> show databases;
+
+hive> create database targetdb;
+
+hive> show databases;
+OK
+default
+source_credcarddb
+targetdb
+Time taken: 0.018 seconds, Fetched: 3 row(s)
+
+
+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+query 9:    Goto Spark and process the data as per functional requirement .
+
+ All functional requirements 
+
+
+
+	1: a) Create Externa table in parquet format For each output from 1 -2  Table names. CreditCard wise - Year – wise Month wise .  Summarized  output
+
+
+CREATE EXTERNAL TABLE IF NOT EXISTS TARGETDB.TRAN_CREDITCARD(TRAN_ID INT,CUST_ID BIGINT) PARTITIONED BY (TRAN_DATE BIGINT) ROW
+ FORMAT DELIMITED FIELDS TERMINATED BY ',' STORED AS parquet location '/user/hduser/credcarddb/outputdir/Year_Month_Partition/'
+
+
+ INSERT OVERWRITE TABLE TARGETDB.TRAN_CREDITCARD PARTITION (TRAN_DATE) SELECT TRAN_ID,CUST_ID,TRAN_DATE FROM CREDITCARD;
+
+
+SELECT * FROM TARGETDB.TRAN_CREDITCARD;
+
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+	 1: b )  Generate monthly bill for a credit card number – Year & Month detailed
+
+
+hive> CREATE TEMPORARY TABLE monthly_bill(cust_id bigint,cust_f_name varchar(40),cust_m_name varchar (40), cust_l_name varchar(40),cust_cc_no bigint,
+card_type varchar(40),tran_year int,tran_month varchar(50),bill int,remark string) ROW FORMAT DELIMITED FIELDS TERMINATED BY ',' STORED AS TEXTFILE; 
+
+hive> load data local inpath '/home/rajesh/source_local/Customer.csv' into table monthly_bill;
+
+hive> select * from monthly_bill;
+
+
+hive> create external table targetdb.monthly_bill(cust_id bigint,cust_f_name varchar(40),cust_m_name varchar (40), cust_l_name varchar(40),cust_cc_no bigint) PARTITIONED BY
+ (card_type varchar(50)) row format delimited fields terminated by ',' lines terminated by '\n' stored as parquet location '/user/hduser/credcarddb/outputdir/Monthly_Bill/';
+
+
+hive> INSERT OVERWRITE TABLE TARGETDB.MONTHLY_BILL PARTITION (card_type) SELECT CUST_ID,cust_f_name,cust_m_name,cust_l_name,cust_cc_no,
+card_type FROM CUSTOMER;
+
+hive> select * from  TARGETDB.MONTHLY_BILL;
+
+
+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+requirement 2 :   Find the customer exceeding card limit – monthly.
+
+
+

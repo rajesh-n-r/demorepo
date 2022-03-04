@@ -1,0 +1,43 @@
+
+Requirement 2 )    Find the customer exceeding card limit – monthly. Note Incase customer has exceeded, Create new Remark Colum and  display the Alter message as follows
+		“Alert CC Team”
+
+
+hive> CREATE TEMPORARY TABLE card_limit(cust_id bigint,cust_f_name varchar(40),cust_m_name varchar (40), cust_l_name varchar(40),cust_cc_no bigint,card_type 
+varchar(40),card_limit int,total_purchase int,amount_exceeded int,remark string) ROW FORMAT DELIMITED FIELDS TERMINATED BY ',' STORED AS TEXTFILE; 
+
+
+hive> load data local inpath '/home/rajesh/source_local/Customer.csv' into table card_limit;
+
+hive>select * from card_limit;
+
+Time taken: 0.062 seconds
+
+
+
+hive> create external table targetdb.card_limit_exceeding(cust_f_name varchar(40),cust_m_name varchar (40), cust_l_name varchar(40),cust_cc_no bigint,
+card_type varchar(40)) PARTITIONED BY (card_limit BIGINT) row format delimited fields terminated by ',' lines terminated by '\n' stored as parquet location 
+'/user/hduser/credcarddb/outputdir/Card_Limit_Exceeding/';
+
+
+hive> INSERT OVERWRITE TABLE TARGETDB.card_limit_exceeding PARTITION (card_limit) SELECT cust_f_name,cust_m_name,cust_l_name,cust_cc_no,
+card_type,card_limit FROM customer;
+
+
+hive>select * from targetdb.card_limit_exceeding;
+
+
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+requirement 3)    Categorize the Customer with “Good”, ”Normal”, ”Poor”  based on overdue  - Annual  - transaction – Sorted  Year/Month
+
+
+hive>  insert overwrite directory '/user/hduser/credcarddb/outputdir/Tran_Count_Annual_Month' row format delimited fields terminated by ',' select t.cust_id,upper(c.cust_f_name),
+upper(c.cust_m_name),upper(c.cust_l_name),t.branch_code,c.cust_cc_no,upper(c.card_type),c.cust_ssn,date_format(t.tran_date,'YYYY-MMMM'),count(t.tran_id),case
+ when count(t.tran_id)>=5 then 'GOOD' when count(t.tran_id)>=3 and count(t.tran_id)<5 then 'NORMAL' else 'POOR' end from tran_credit_card t join customer c 
+on t.cust_id=c.cust_id group by t.cust_id,c.cust_f_name,c.cust_m_name,c.cust_l_name,t.branch_code,c.cust_cc_no,c.cust_ssn,card_type,date_format(t.tran_date,'YYYY-MMMM');
+
+
+
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+

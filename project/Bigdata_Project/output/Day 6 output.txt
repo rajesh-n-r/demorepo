@@ -1,0 +1,339 @@
+
+requirement 2)   Find the customer exceeding card limit – monthly. Note Incase customer has exceeded, Create new Remark Colum and  display the Alter message as follows
+		“Alert CC Team” 
+
+
+hive> CREATE TEMPORARY TABLE card_limit(cust_id bigint,cust_f_name varchar(40),cust_m_name varchar (40), cust_l_name varchar(40),cust_cc_no bigint,card_type 
+varchar(40),card_limit int,total_purchase int,amount_exceeded int,remark string) ROW FORMAT DELIMITED FIELDS TERMINATED BY ',' STORED AS TEXTFILE; 
+OK
+Time taken: 0.031 seconds
+hive> load data local inpath '/home/rajesh/source_local/customer.csv' into table card_limit;
+FAILED: SemanticException Line 1:23 Invalid path ''/home/rajesh/source_local/customer.csv'': No files matching path file:/home/rajesh/source_local/customer.csv
+hive> load data local inpath '/home/rajesh/source_local/Customer.csv' into table card_limit;
+Loading data to table source_credcarddb.card_limit
+Table source_credcarddb.card_limit stats: [numFiles=1, totalSize=9482]
+OK
+Time taken: 0.062 seconds
+hive> select * from card_limit 
+    > ;
+OK
+NULL	CUST_F_NAME	CUST_M_NAME	CUST_L_NAME	NULL	CARD_TYPE	NULL	NULL	NULL	CUST_STREET
+3562001602	Chrissie		Rayner	6334878173213670	amex	500000	NULL	567936602	Noble Embers Ridge
+3562001603	Titus		Paolozzi	3567523223820780	visa	50000	NULL	190445473	Blue Pioneer Bend
+3562001604	Jethro	Byrom	Winear	3039905356295530	amex	500000	NULL	143032108	Little Common
+3562001606	Lura		Flye	3578070062995380	visa	50000	NULL	280264513	Sleepy Quail Promenade
+3562001607	Merrill		Ratcliff	5403648817321420	master	100000	NULL	195223654	High Concession
+3562001608	Venita	Lennard	Rutgers	3547496963061990	visa	50000	NULL	531442970	Foggy Forest Plaza
+3562001610	Orbadiah		Royson	3051418309044220	amex	500000	NULL	835384343	Harvest Beacon Plaza
+3562001611	Merle		McGenn	4936290378811880	master	100000	NULL	653470680	Stony Woods
+3562001612	Fidel		Windas	3531017574361360	visa	50000	NULL	355714929	Jagged Embers By-pass
+3562001613	Beatrice		Feedome	3588589058006900	visa	50000	NULL	763905687	Iron Oak Gardens
+3562001614	Asia		Trudgion	5602256302089870	amex	500000	NULL	533779130	Hazy Pony Square
+3562001615	Nessa		Brisse	3566727575950610	visa	50000	NULL	398859724	Burning Glen
+3562001616	Cristine	Vittorio	Braxay	2017260974760290	amex	50000	NULL	585616059	Iron Port
+3562001617	Tucky		Sabbatier	3058775791217550	amex	500000	NULL	496377931	Noble Pike
+3562001621	Peg		Welbrock	3537914201882630	visa	50000	NULL	462741915	Old Willow Mall
+3562001622	Amity		Birkenshaw	3746221893451670	amex	500000	NULL	527168982	Heather Plaza
+3562001623	Marylynne	Sheff	Peddel	4913946420798260	visa	50000	NULL	726028398	Noble Embers Ridge
+3562001624	Vladamir	Augy	Hehl	6763887925070990	master	100000	NULL	854984549	Blue Pioneer Bend
+3562001626	Giacomo		Clifton	3746227754890490	amex	500000	NULL	416699493	Sleepy Quail Promenade
+3562001627	Dalila		Weatherhead	3539018736993780	visa	50000	NULL	756695602	Little Common
+3562001629	Sherlock	Vince	Woolliams	5602225917136840	amex	500000	NULL	381425374	Heather Plaza
+3562001630	Elladine	Kenneth	Dealy	6378610833616780	master	100000	NULL	522026991	Jagged Embers By-pass
+3562001631	Marlow	Deane	Seleway	3537861601381620	visa	50000	NULL	417953628	Noble Embers Ridge
+3562001634	Haywood	Cesare	Gernier	3555072384085640	visa	50000	NULL	324748675	Blue Pioneer Bend
+3562001635	Sampson		Genge	5602257512986730	amex	500000	NULL	742724564	Hazy Pony Square
+3562001636	Iggy		Wardale	3584827256597080	visa	50000	NULL	629172934	Heather Plaza
+3562001637	Lorain		Crone	4913586748929930	visa	50000	NULL	316626688	Little Common
+3562001638	Denny		Hehir	5210169439885370	master	100000	NULL	610816990	Sleepy Quail Promenade
+3562001643	Edmund		Trigg	5468084768591910	master	100000	NULL	646192779	Red Treasure Bay
+3562001649	Fawnia		Swale	5127419432105430	master	100000	NULL	531517681	Heather Plaza
+3562001650	Cristine		Juden	6334827235490350	amex	500000	NULL	551848770	Heather Plaza
+3562001651	Freeman	Bartlet	Ledeker	3574831034580740	visa	50000	NULL	403637146	Sleepy Quail Promenade
+3562001652	Gina		Massimi	3553250558494440	visa	50000	NULL	185955202	Noble Embers Ridge
+3562001654	Amil	Curr	Fawbert	5010120208028190	master	100000	NULL	490994326	Blue Pioneer Bend
+3562001661	Clarinda		Scoone	4936566808390050	master	100000	NULL	636563744	Jagged Embers By-pass
+3562001662	Reta		Nairy	2017763113611190	amex	500000	NULL	651396269	Quaking Street
+3562001664	Nessy		Royal	6334792030406340	amex	500000	NULL	639326651	Blue Pioneer Bend
+3562001667	Devlen		Pietraszek	3576170925662380	visa	50000	NULL	132925451	Little Common
+3562001674	Rhoda	Arlin	Biddles	3549138667705450	visa	50000	NULL	828832569	Foggy Forest Plaza
+3562001675	Florenza	Marwin	Tortice	3576661367312800	visa	50000	NULL	247313110	Noble Embers Ridge
+3562001676	Trumaine	Arel	Lukock	4905195125036260	master	100000	NULL	138775149	Old Willow Mall
+3562001678	Bogart	Raimund	Summersby	3041940220450330	amex	500000	NULL	580262327	Hazy Pony Square
+3562001679	Sawyer		Ismail	3547026896168710	visa	50000	NULL	519314802	Sleepy Quail Promenade
+3562001680	Nelie	Rollin	Camelin	5602250664479540	amex	500000	NULL	725510273	Burning Glen
+3562001681	Jacklin		Stango	6771126200690550	master	100000	NULL	111143799	High Concession
+3562001682	Ilario		Hadfield	6304715204316940	master	100000	NULL	469721617	Heather Plaza
+3562001683	Ruperto	Leupold	Martinez	3583060400927120	visa	50000	NULL	759211565	Quaking Street
+3562001687	Meredeth		Blaycock	6334071935110170	amex	500000	NULL	342743043	Little Common
+3562001688	Torrance		Scrowby	4607915147472950	visa	50000	NULL	727103869	Harvest Beacon Plaza
+3562001689	Berton	Ryan	Mc Pake	5371063911268820	master	100000	NULL	338877893	Hazy Butterfly Circle
+3562001690	Sigismondo		Clever	3553276103969740	visa	50000	NULL	693722843	High Concession
+3562001691	Bidget	Curcio	Chestnutt	5602255813010240	amex	500000	NULL	310164096	Sleepy Quail Promenade
+3562001692	Layne	Isacco	Phelips	5602236760338580	amex	500000	NULL	346586073	Old Willow Mall
+3562001693	Zilvia	Raynard	Fox	5602242963853220	amex	500000	NULL	224472153	Jagged Embers By-pass
+3562001695	Derron	Gothart	Kitchinghan	4913225109356710	visa	50000	NULL	893685782	Burning Glen
+3562001696	Ray		Dilliway	3583849494251710	visa	50000	NULL	751883259	Heather Plaza
+3562001697	Ebenezer	Corty	Demanche	6759542041496280	master	100000	NULL	150789497	Harvest Beacon Plaza
+3562001698	Tillie	Corty	Denisot	3550166575967910	visa	50000	NULL	802751526	Quaking Street
+3562001699	Brig		Tompkiss	2014268557886530	amex	500000	NULL	342068735	Hazy Pony Square
+3562001700	Martha		Harnes	3557727107117620	visa	50000	NULL	327478784	Noble Embers Ridge
+Time taken: 0.052 seconds, Fetched: 61 row(s)
+
+
+
+
+
+hive> create external table targetdb.card_limit_exceeding(cust_f_name varchar(40),cust_m_name varchar (40), cust_l_name varchar(40),cust_cc_no bigint,
+card_type varchar(40)) PARTITIONED BY (card_limit BIGINT) row format delimited fields terminated by ',' lines terminated by '\n' stored as parquet location 
+'/user/hduser/credcarddb/outputdir/Card_Limit_Exceeding/';
+OK
+Time taken: 0.045 seconds
+hive> INSERT OVERWRITE TABLE TARGETDB.card_limit_exceeding PARTITION (card_limit) SELECT cust_f_name,cust_m_name,cust_l_name,cust_cc_no,
+card_type,card_limit FROM customer;
+Query ID = rajesh_20220209121133_4dc5fc16-2d64-4d8f-920e-8b49ac8e7757
+Total jobs = 3
+Launching Job 1 out of 3
+Number of reduce tasks is set to 0 since there's no reduce operator
+Starting Job = job_1644250992493_0007, Tracking URL = http://rajesh:8088/proxy/application_1644250992493_0007/
+Kill Command = /home/rajesh/hadoop-2.10.1/bin/hadoop job  -kill job_1644250992493_0007
+Hadoop job information for Stage-1: number of mappers: 1; number of reducers: 0
+2022-02-09 12:11:38,816 Stage-1 map = 0%,  reduce = 0%
+2022-02-09 12:11:45,004 Stage-1 map = 100%,  reduce = 0%, Cumulative CPU 3.39 sec
+MapReduce Total cumulative CPU time: 3 seconds 390 msec
+Ended Job = job_1644250992493_0007
+Stage-4 is selected by condition resolver.
+Stage-3 is filtered out by condition resolver.
+Stage-5 is filtered out by condition resolver.
+Moving data to: hdfs://localhost:9000/user/hduser/credcarddb/outputdir/Card_Limit_Exceeding/.hive-staging_hive_2022-02-09_12-11-33_051_8103585041469112035-1/-ext-10000
+Loading data to table targetdb.card_limit_exceeding partition (card_limit=null)
+	 Time taken for load dynamic partitions : 123
+	Loading partition {card_limit=50000}
+	Loading partition {card_limit=500000}
+	Loading partition {card_limit=100000}
+	 Time taken for adding to write entity : 0
+Partition targetdb.card_limit_exceeding{card_limit=100000} stats: [numFiles=1, numRows=14, totalSize=1174, rawDataSize=70]
+Partition targetdb.card_limit_exceeding{card_limit=50000} stats: [numFiles=1, numRows=27, totalSize=1651, rawDataSize=135]
+Partition targetdb.card_limit_exceeding{card_limit=500000} stats: [numFiles=1, numRows=19, totalSize=1352, rawDataSize=95]
+MapReduce Jobs Launched: 
+Stage-Stage-1: Map: 1   Cumulative CPU: 3.39 sec   HDFS Read: 16020 HDFS Write: 4412 SUCCESS
+Total MapReduce CPU Time Spent: 3 seconds 390 msec
+OK
+Time taken: 13.336 seconds
+hive> select * from targetdb.card_limit_exceeding;
+OK
+Merrill         Ratcliff        5403648817321420        master  100000
+Merle		McGenn	4936290378811880	master	100000
+Vladamir	Augy	Hehl	6763887925070990	master	100000
+Elladine	Kenneth	Dealy	6378610833616780	master	100000
+Denny		Hehir	5210169439885370	master	100000
+Edmund		Trigg	5468084768591910	master	100000
+Fawnia		Swale	5127419432105430	master	100000
+Amil	Curr	Fawbert	5010120208028190	master	100000
+Clarinda		Scoone	4936566808390050	master	100000
+Trumaine	Arel	Lukock	4905195125036260	master	100000
+Jacklin		Stango	6771126200690550	master	100000
+Ilario		Hadfield	6304715204316940	master	100000
+Berton	Ryan	Mc Pake	5371063911268820	master	100000
+Ebenezer	Corty	Demanche	6759542041496280	master	100000
+Titus		Paolozzi	3567523223820780	visa	50000
+Lura		Flye	3578070062995380	visa	50000
+Venita	Lennard	Rutgers	3547496963061990	visa	50000
+Fidel		Windas	3531017574361360	visa	50000
+Beatrice		Feedome	3588589058006900	visa	50000
+Nessa		Brisse	3566727575950610	visa	50000
+Cristine	Vittorio	Braxay	2017260974760290	amex	50000
+Peg		Welbrock	3537914201882630	visa	50000
+Marylynne	Sheff	Peddel	4913946420798260	visa	50000
+Dalila		Weatherhead	3539018736993780	visa	50000
+Marlow	Deane	Seleway	3537861601381620	visa	50000
+Haywood	Cesare	Gernier	3555072384085640	visa	50000
+Iggy		Wardale	3584827256597080	visa	50000
+Lorain		Crone	4913586748929930	visa	50000
+Freeman	Bartlet	Ledeker	3574831034580740	visa	50000
+Gina		Massimi	3553250558494440	visa	50000
+Devlen		Pietraszek	3576170925662380	visa	50000
+Rhoda	Arlin	Biddles	3549138667705450	visa	50000
+Florenza	Marwin	Tortice	3576661367312800	visa	50000
+Sawyer		Ismail	3547026896168710	visa	50000
+Ruperto	Leupold	Martinez	3583060400927120	visa	50000
+Torrance		Scrowby	4607915147472950	visa	50000
+Sigismondo		Clever	3553276103969740	visa	50000
+Derron	Gothart	Kitchinghan	4913225109356710	visa	50000
+Ray		Dilliway	3583849494251710	visa	50000
+Tillie	Corty	Denisot	3550166575967910	visa	50000
+Martha		Harnes	3557727107117620	visa	50000
+Chrissie		Rayner	6334878173213670	amex	500000
+Jethro	Byrom	Winear	3039905356295530	amex	500000
+Orbadiah		Royson	3051418309044220	amex	500000
+Asia		Trudgion	5602256302089870	amex	500000
+Tucky		Sabbatier	3058775791217550	amex	500000
+Amity		Birkenshaw	3746221893451670	amex	500000
+Giacomo		Clifton	3746227754890490	amex	500000
+Sherlock	Vince	Woolliams	5602225917136840	amex	500000
+Sampson		Genge	5602257512986730	amex	500000
+Cristine		Juden	6334827235490350	amex	500000
+Reta		Nairy	2017763113611190	amex	500000
+Nessy		Royal	6334792030406340	amex	500000
+Bogart	Raimund	Summersby	3041940220450330	amex	500000
+Nelie	Rollin	Camelin	5602250664479540	amex	500000
+Meredeth		Blaycock	6334071935110170	amex	500000
+Bidget	Curcio	Chestnutt	5602255813010240	amex	500000
+Layne	Isacco	Phelips	5602236760338580	amex	500000
+Zilvia	Raynard	Fox	5602242963853220	amex	500000
+Brig		Tompkiss	2014268557886530	amex	500000
+Time taken: 0.075 seconds, Fetched: 60 row(s)
+
+
+
+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+requirement 3)      Categorize the Customer with “Good”, ”Normal”, ”Poor”  based on overdue  - Annual  - transaction – Sorted  Year/Month
+
+
+
+hive> insert overwrite directory '/user/hduser/credcarddb/outputdir/Tran_Count_Annual_Month' row format delimited fields terminated by ',' select t.cust_id,upper
+(c.cust_f_name),upper(c.cust_m_name),upper(c.cust_l_name),t.branch_code,c.cust_cc_no,upper(c.card_type),c.cust_ssn,date_format(t.tran_date,'YYYY-MMMM'),
+count(t.tran_id),casewhen count(t.tran_id)>=5 then 'GOOD' when count(t.tran_id)>=3 and count(t.tran_id)<5 then 'NORMAL' else 'POOR' end from tran_credit_card t 
+join customer c on t.cust_id=c.cust_id group by t.cust_id,c.custf_name,c.cust_m_name,c.cust_l_name,t.branch_code,c.cust_cc_no,c.cust_ssn,card_type,date_format
+(t.tran_date,'YYYY-MMMM');
+Query ID = rajesh_20220209122709_42fb62ce-5a49-4550-b86b-6f6e07906f9d
+Total jobs = 1
+22/02/09 12:27:11 WARN util.NativeCodeLoader: Unable to load native-hadoop library for your platform... using builtin-java classes where applicable
+Execution log at: /tmp/rajesh/rajesh_20220209122709_42fb62ce-5a49-4550-b86b-6f6e07906f9d.log
+2022-02-09 12:27:11	Starting to launch local task to process map join;	maximum memory = 477626368
+2022-02-09 12:27:12	Dump the side-table for tag: 1 with group count: 0 into file: file:/tmp/rajesh/7101dc8a-4503-4c6b-9a14-6dfab0803742/hive_2022-02-09_12-27-09_316_
+3969012057414178144-1/-local-10003/HashTable-Stage-2/MapJoin-mapfile11--.hashtable
+2022-02-09 12:27:12	Uploaded 1 File to: file:/tmp/rajesh/7101dc8a-4503-4c6b-9a14-6dfab0803742/hive_2022-02-09_12-27-09_316_3969012057414178144-1/-local-10003/
+HashTable-Stage-2/MapJoin-mapfile11--.hashtable (260 bytes)
+2022-02-09 12:27:12	End of local task; Time Taken: 0.869 sec.
+Execution completed successfully
+MapredLocal task succeeded
+Launching Job 1 out of 1
+Number of reduce tasks not specified. Estimated from input data size: 1
+In order to change the average load for a reducer (in bytes):
+  set hive.exec.reducers.bytes.per.reducer=<number>
+In order to limit the maximum number of reducers:
+  set hive.exec.reducers.max=<number>
+In order to set a constant number of reducers:
+  set mapreduce.job.reduces=<number>
+Starting Job = job_1644250992493_0009, Tracking URL = http://rajesh:8088/proxy/application_1644250992493_0009/
+Kill Command = /home/rajesh/hadoop-2.10.1/bin/hadoop job  -kill job_1644250992493_0009
+Hadoop job information for Stage-2: number of mappers: 1; number of reducers: 1
+2022-02-09 12:27:17,757 Stage-2 map = 0%,  reduce = 0%
+2022-02-09 12:27:22,861 Stage-2 map = 100%,  reduce = 0%, Cumulative CPU 1.87 sec
+2022-02-09 12:27:27,966 Stage-2 map = 100%,  reduce = 100%, Cumulative CPU 4.3 sec
+MapReduce Total cumulative CPU time: 4 seconds 300 msec
+Ended Job = job_1644250992493_0009
+Moving data to: /user/hduser/credcarddb/outputdir/Tran_Count_Annual_Month
+MapReduce Jobs Launched: 
+Stage-Stage-2: Map: 1  Reduce: 1   Cumulative CPU: 4.3 sec   HDFS Read: 37745 HDFS Write: 0 SUCCESS
+Total MapReduce CPU Time Spent: 4 seconds 300 msec
+OK
+Time taken: 19.727 seconds
+
+
+
+3562001602	CHRISSIE		RAYNER	9526	6334878173213670	AMEX	567936602	2018-December	10	GOOD
+3562001602	CHRISSIE		RAYNER	9526	6334878173213670	AMEX	567936602	2018-November	4	NORMAL
+3562001602	CHRISSIE		RAYNER	9526	6334878173213670	AMEX	567936602	2019-January	8	GOOD
+3562001602	CHRISSIE		RAYNER	9526	6334878173213670	AMEX	567936602	2019-March	4	NORMAL
+3562001603	TITUS		PAOLOZZI	3422	3567523223820780	VISA	190445473	2016-January	2	POOR
+3562001603	TITUS		PAOLOZZI	3422	3567523223820780	VISA	190445473	2017-August	4	NORMAL
+3562001603	TITUS		PAOLOZZI	3422	3567523223820780	VISA	190445473	2018-April	8	GOOD
+3562001604	JETHRO	BYROM	WINEAR	8300	3039905356295530	AMEX	143032108	2016-January	2	POOR
+3562001604	JETHRO	BYROM	WINEAR	8300	3039905356295530	AMEX	143032108	2017-May	4	NORMAL
+3562001606	LURA		FLYE	3420	3578070062995380	VISA	280264513	2018-December	8	GOOD
+3562001607	MERRILL		RATCLIFF	6301	5403648817321420	MASTER	195223654	2016-February	4	NORMAL
+3562001607	MERRILL		RATCLIFF	6301	5403648817321420	MASTER	195223654	2016-March	4	NORMAL
+3562001607	MERRILL		RATCLIFF	6301	5403648817321420	MASTER	195223654	2017-April	4	NORMAL
+3562001607	MERRILL		RATCLIFF	6301	5403648817321420	MASTER	195223654	2017-August	4	NORMAL
+3562001607	MERRILL		RATCLIFF	6301	5403648817321420	MASTER	195223654	2017-July	4	NORMAL
+3562001607	MERRILL		RATCLIFF	6301	5403648817321420	MASTER	195223654	2017-June	4	NORMAL
+3562001607	MERRILL		RATCLIFF	6301	5403648817321420	MASTER	195223654	2018-August	4	NORMAL
+3562001607	MERRILL		RATCLIFF	6301	5403648817321420	MASTER	195223654	2018-July	4	NORMAL
+3562001608	VENITA	LENNARD	RUTGERS	8301	3547496963061990	VISA	531442970	2016-February	4	NORMAL
+3562001608	VENITA	LENNARD	RUTGERS	8301	3547496963061990	VISA	531442970	2016-March	2	POOR
+3562001608	VENITA	LENNARD	RUTGERS	8301	3547496963061990	VISA	531442970	2017-June	4	NORMAL
+3562001611	MERLE		MCGENN	6302	4936290378811880	MASTER	653470680	2018-December	20	GOOD
+3562001612	FIDEL		WINDAS	3428	3531017574361360	VISA	355714929	2016-February	2	POOR
+3562001612	FIDEL		WINDAS	3428	3531017574361360	VISA	355714929	2017-June	4	NORMAL
+3562001613	BEATRICE		FEEDOME	9529	3588589058006900	VISA	763905687	2016-February	2	POOR
+3562001615	NESSA		BRISSE	8302	3566727575950610	VISA	398859724	2016-March	2	POOR
+3562001615	NESSA		BRISSE	8302	3566727575950610	VISA	398859724	2017-April	2	POOR
+3562001615	NESSA		BRISSE	8302	3566727575950610	VISA	398859724	2018-March	4	NORMAL
+3562001617	TUCKY		SABBATIER	9530	3058775791217550	AMEX	496377931	2018-November	6	GOOD
+3562001617	TUCKY		SABBATIER	9530	3058775791217550	AMEX	496377931	2019-February	4	NORMAL
+3562001621	PEG		WELBROCK	3425	3537914201882630	VISA	462741915	2017-July	6	GOOD
+3562001621	PEG		WELBROCK	3425	3537914201882630	VISA	462741915	2018-September	18	GOOD
+3562001630	ELLADINE	KENNETH	DEALY	3428	6378610833616780	MASTER	522026991	2016-February	4	NORMAL
+3562001630	ELLADINE	KENNETH	DEALY	3428	6378610833616780	MASTER	522026991	2017-April	4	NORMAL
+3562001631	MARLOW	DEANE	SELEWAY	9526	3537861601381620	VISA	417953628	2019-February	4	NORMAL
+3562001635	SAMPSON		GENGE	3430	5602257512986730	AMEX	742724564	2016-March	4	NORMAL
+3562001635	SAMPSON		GENGE	3430	5602257512986730	AMEX	742724564	2017-June	4	NORMAL
+3562001635	SAMPSON		GENGE	3430	5602257512986730	AMEX	742724564	2017-May	4	NORMAL
+3562001638	DENNY		HEHIR	3420	5210169439885370	MASTER	610816990	2017-April	4	NORMAL
+3562001638	DENNY		HEHIR	3420	5210169439885370	MASTER	610816990	2018-July	8	GOOD
+3562001638	DENNY		HEHIR	3420	5210169439885370	MASTER	610816990	2018-March	4	NORMAL
+3562001649	FAWNIA		SWALE	6300	5127419432105430	MASTER	531517681	2018-December	4	NORMAL
+3562001649	FAWNIA		SWALE	6300	5127419432105430	MASTER	531517681	2019-December	4	NORMAL
+3562001649	FAWNIA		SWALE	6300	5127419432105430	MASTER	531517681	2019-February	8	GOOD
+3562001649	FAWNIA		SWALE	6300	5127419432105430	MASTER	531517681	2019-January	4	NORMAL
+3562001652	GINA		MASSIMI	9526	3553250558494440	VISA	185955202	2018-April	2	POOR
+3562001652	GINA		MASSIMI	9526	3553250558494440	VISA	185955202	2018-August	10	GOOD
+3562001652	GINA		MASSIMI	9526	3553250558494440	VISA	185955202	2018-June	2	POOR
+3562001652	GINA		MASSIMI	9526	3553250558494440	VISA	185955202	2018-October	6	GOOD
+3562001662	RETA		NAIRY	9528	2017763113611190	AMEX	651396269	2018-December	12	GOOD
+3562001662	RETA		NAIRY	9528	2017763113611190	AMEX	651396269	2020-April	6	GOOD
+3562001662	RETA		NAIRY	9528	2017763113611190	AMEX	651396269	2020-May	4	NORMAL
+3562001664	NESSY		ROYAL	3422	6334792030406340	AMEX	639326651	2017-September	4	NORMAL
+3562001664	NESSY		ROYAL	3422	6334792030406340	AMEX	639326651	2018-February	4	NORMAL
+3562001664	NESSY		ROYAL	3422	6334792030406340	AMEX	639326651	2018-July	4	NORMAL
+3562001674	RHODA	ARLIN	BIDDLES	3422	3549138667705450	VISA	828832569	2017-August	4	NORMAL
+3562001674	RHODA	ARLIN	BIDDLES	3422	3549138667705450	VISA	828832569	2017-June	4	NORMAL
+3562001674	RHODA	ARLIN	BIDDLES	3422	3549138667705450	VISA	828832569	2018-August	4	NORMAL
+3562001674	RHODA	ARLIN	BIDDLES	3422	3549138667705450	VISA	828832569	2018-May	4	NORMAL
+3562001674	RHODA	ARLIN	BIDDLES	3422	3549138667705450	VISA	828832569	2018-September	12	GOOD
+3562001674	RHODA	ARLIN	BIDDLES	8301	3549138667705450	VISA	828832569	2017-June	2	POOR
+3562001674	RHODA	ARLIN	BIDDLES	8301	3549138667705450	VISA	828832569	2018-July	4	NORMAL
+3562001674	RHODA	ARLIN	BIDDLES	8301	3549138667705450	VISA	828832569	2018-September	6	GOOD
+3562001678	BOGART	RAIMUND	SUMMERSBY	3430	3041940220450330	AMEX	580262327	2019-January	10	GOOD
+3562001682	ILARIO		HADFIELD	6300	6304715204316940	MASTER	469721617	2018-August	4	NORMAL
+3562001682	ILARIO		HADFIELD	6300	6304715204316940	MASTER	469721617	2018-May	4	NORMAL
+3562001682	ILARIO		HADFIELD	6300	6304715204316940	MASTER	469721617	2018-October	4	NORMAL
+3562001682	ILARIO		HADFIELD	6300	6304715204316940	MASTER	469721617	2018-September	8	GOOD
+3562001688	TORRANCE		SCROWBY	3421	4607915147472950	VISA	727103869	2018-June	6	GOOD
+3562001692	LAYNE	ISACCO	PHELIPS	3425	5602236760338580	AMEX	346586073	2018-August	2	POOR
+3562001692	LAYNE	ISACCO	PHELIPS	3425	5602236760338580	AMEX	346586073	2018-November	2	POOR
+3562001692	LAYNE	ISACCO	PHELIPS	3425	5602236760338580	AMEX	346586073	2018-October	4	NORMAL
+3562001692	LAYNE	ISACCO	PHELIPS	3425	5602236760338580	AMEX	346586073	2018-September	2	POOR
+3562001692	LAYNE	ISACCO	PHELIPS	3425	5602236760338580	AMEX	346586073	2019-November	2	POOR
+3562001696	RAY		DILLIWAY	6300	3583849494251710	VISA	751883259	2018-February	2	POOR
+3562001696	RAY		DILLIWAY	6300	3583849494251710	VISA	751883259	2018-June	4	NORMAL
+3562001696	RAY		DILLIWAY	6300	3583849494251710	VISA	751883259	2018-November	8	GOOD
+3562001696	RAY		DILLIWAY	6300	3583849494251710	VISA	751883259	2018-October	6	GOOD
+3562001699	BRIG		TOMPKISS	3430	2014268557886530	AMEX	342068735	2018-August	8	GOOD
+3562001699	BRIG		TOMPKISS	3430	2014268557886530	AMEX	342068735	2018-March	12	GOOD
+
+
+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+query 10: All Spark processed outpu should be stored in   Hive  Target tables  as  External tables with Parquet file format 
+
+	All the sorted files are automatically stored in parquet format.
+
+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+query 11:  All  output files should be stored in Parquet format under respective sub-folders
+
+	All output files are stored in files and in the sub-folders as the path that is provided by the creater
+
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+ query 12:   Please ensure that temporary table gets deleted  automatically
+
+	The temporary files that are created will be deleted automatically once we close the teerminal
+
+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------

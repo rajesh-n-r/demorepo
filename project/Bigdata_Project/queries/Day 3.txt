@@ -1,0 +1,36 @@
+Project 
+
+query 5 :   Load  respective item 2  CSV files into item 4 tables
+
+query 6:    In Hive, temporary table and  for  Creditcard table  and  load Creditcard CSV file
+
+CREATE TEMPORARY TABLE CREDITCARD(TRAN_ID INT,TRAN_DATE DATE,CUST_ID BIGINT,CUST_CC_NO BIGINT,CUST_SSN BIGINT,BRANCH_CODE 
+INT,TRAN_TYPE VARCHAR(15),TRAN_VALUE BIGINT) ROW FORMAT DELIMITED FIELDS TERMINATED BY ',' STORED AS TEXTFILE;
+
+load data local inpath '/home/rajesh/sourcelocal/Branch.csv' into table CREDITCARD;
+
+select * from CREDITCARD;
+
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+query 6:    In Hive create Tran_CreditCard as  External  table with partitioned by YEAR & MONTH and insert the data from the temporary table in item 6Note 
+
+
+hive> set hive.exec.dynamic.partition.mode=nonstrict
+
+
+hive> SET hive.exec.max.dynamic.partitions=100000;
+hive> SET hive.exec.max.dynamic.partitions.pernode=100000;
+
+
+hive> CREATE EXTERNAL TABLE IF NOT EXISTS TRAN_CREDITCARD(TRAN_ID INT,CUST_ID BIGINT) PARTITIONED BY (TRAN_DATE BIGINT) ROW
+ FORMAT DELIMITED FIELDS TERMINATED BY ',' STORED AS TEXTFILE;
+
+hive> INSERT OVERWRITE TABLE TRAN_CREDITCARD PARTITION (TRAN_DATE) SELECT TRAN_ID,CUST_ID,TRAN_DATE FROM CREDITCARD;
+
+SELECT * FROM TRAN_CREDITCARD;
+
+
+
+
+

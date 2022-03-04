@@ -1,0 +1,90 @@
+
+							      Group 3
+							  Team Members 
+
+Rajesh Ravindrareddy
+Rushikesh Bhattad
+Prachi Diwakar
+Deepak Ganesan
+
+
+                                                                       			       (Topic)
+
+-----------------------------------------------------------------------------------------Creditcard Billing System-------------------------------------------------------------------------------------------------------
+ 									
+							      (Day 1)
+
+	1) Discussion with team regarding project..
+	2) We have gone through the contents given us.
+	3) understood the project workflow.
+	4) Discussed about the requirements of the projects.
+
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+							       (Day 2)
+
+
+	1) Created the directory in local directory and loaded all the csv files inside the directory.
+	2) Connected to hive.
+	3) Created the Database sourcedb and used that database.
+	4) Created the tables customers,branch,creditcard.
+	5) loaded the data from local to the created tables in hive.
+
+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+							    (Day 3)
+
+
+	1) Created the temporary table
+	2) loaded the data to temporary table
+	3) Created the external table by using partition 
+	4) copying the data from temporary table to the external table
+	5) over coming the  errors found during executing the queries.
+
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+							      (Day 4)
+
+
+	1) created the spark external table
+	2) connecting the hive with spark 
+	3) transforming the data from temporary table to target data base table
+
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+							      (Day 5)
+
+	1) tryed with the installation of my Sql but were not able to install
+	2) Solving the errors during the installation
+
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+							       (Day 6)
+
+	1) creating the database in hive
+	2) working on the functional requirements 
+	3) creating the temporary table and extracting the data
+	4) working on completing the ppt of project
+	5) trying to store the processed data target dataase 
+
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+							       (Day 7)
+
+	1) working on the functional requirement
+	2) creating the temporary table and extracting the data
+	3) working with external tables
+	4) storing the data in target db automatically
+	5) temporary table should be deleted automatically after excueting.
+	6) submiting the entire project to trainer.
+
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+						                   THANK YOU
