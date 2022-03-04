@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <script src="https://unpkg.com/feather-icons"></script>
+    <title>Home</title>
+    <style>
+      .user-logout{
+        height: fit-content;
+        width: fit-content;
+        right: 55px;
+        padding: 24px;
+        background-color: white;
+        top: 37px;
+        display: none;
+        z-index: 1000;
+        position: fixed;  
+        border-radius: 10px; 
+        box-shadow:  2px 2px 8px 3px red;    
+      }
+      body
+      {
+      background-image=url('black.jpg');
+      }
+      *{
+      margin:0;
+      padding:0;
+      box-sizing:border-box;
+
+      }
+      mytable{
+      width:100%;
+      display:flex;
+      justify-content:center;
+      font-family:'Roboto',sans-serif;
+      }
+      table{
+      border-collapse: collapse;
+      }
+      .header_fixed
+      {
+      height:500px;
+      overflow:auto;
+      margin-bottom:30px;
+      border:1px solid #dddddd;
+      padding: 10px 20px;
+      }
+      .header_fixed thead {
+      position : sticky;
+      top:0;
+      font-size:30px;
+      font-weight:800;
+      padding: 10px 20px;
+      }
+      th,td{
+      border:1px solid #dddddd;
+      padding: 10px 20px;
+      font-size:14px;
+      }
+      td img{
+      height:60px;
+      width:60px;
+      border-radius:100%;
+      border:5px solid #e6e7e8
+      }
+      ::-webkit-scrollbar{
+      width:6px;
+      }
+      ::-webkit-scrollbar-track{
+       -webkit-box-shadow:inset 0 0 6px rgba(0,0,0,0.3)
+       }
+       ::-webkit-scrollbar-thumb{
+       -webkit-box-shadow:inset 0 0 6px rgba(0,0,0,0.3)
+       }
+
+    </style>
+</head>
+<body>
+    <div class="container-fluid my-2">    
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <div class="container-fluid">
+          <a class="navbar-brand" href="#">UMS</a>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+              <li class="nav-item">
+                <a class="nav-link active" th:href="@{/addUser}" aria-current="page" href="#">Add User</a>
+              </li>
+            </ul>
+            <div class="d-flex">
+              <a href=""><i id="profile-icon" data-feather="user"></i></a>
+                
+            </div>
+            <div id="logout-box" class="user-logout">
+
+              <a class="btn btn-outline-danger" th:href="@{/logout}">              
+                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="currentColor" class="bi bi-box-arrow-left" viewBox="0 0 16 16">
+                  <path fill-rule="evenodd" d="M6 12.5a.5.5 0 0 0 .5.5h8a.5.5 0 0 0 .5-.5v-9a.5.5 0 0 0-.5-.5h-8a.5.5 0 0 0-.5.5v2a.5.5 0 0 1-1 0v-2A1.5 1.5 0 0 1 6.5 2h8A1.5 1.5 0 0 1 16 3.5v9a1.5 1.5 0 0 1-1.5 1.5h-8A1.5 1.5 0 0 1 5 12.5v-2a.5.5 0 0 1 1 0v2z"></path>
+                  <path fill-rule="evenodd" d="M.146 8.354a.5.5 0 0 1 0-.708l3-3a.5.5 0 1 1 .708.708L1.707 7.5H10.5a.5.5 0 0 1 0 1H1.707l2.147 2.146a.5.5 0 0 1-.708.708l-3-3z"></path>
+                </svg>Logout             
+              </a>
+
+
+            </div>
+          </div>
+        </div>
+      </nav>
+    </div>
+
+
+
+<!-- Main Section -->
+    <div class="container-fluid my-2">
+        <div class="row">
+            <!-- Left sideBar -->
+<!--            <div class="col-4"> -->
+<!--                <ul class="list-group">-->
+<!--                    <li class="list-group-item">An item</li>-->
+<!--                    <li class="list-group-item">A second item</li>-->
+<!--                    <li class="list-group-item">A third item</li>-->
+<!--                    <li class="list-group-item">A fourth item</li>-->
+<!--                    <li class="list-group-item">And a fifth one</li>-->
+<!--                </ul>-->
+<!--            </div>-->
+            <!-- Right SideBar -->
+            <div class="col">
+                <div class="row">
+                    <div class="mytable">
+                <table class="table table-dark table-striped">
+                    <thead>
+                      <tr>
+                        <th class="col-3">Unique ID</th>
+                        <th class="col-3">Username</th>
+                        <th class="col-3">Email</th>
+                        <th class="col-3">Actions</th>
+                      </tr>
+                    </thead>
+                        <tbody>
+                       <!--- <td><img src="black.jpg"/></td> --->
+                            <tr th:each="usr : ${users}">
+                                <th th:text="${usr.uid}" id="uid"></th>
+                                <td th:text="${usr.username}"></td>
+                                <td th:text="${usr.email}"></td>
+                                <td>
+                                    <div class="btn-group" role="group" aria-label="Basic example">
+                                        
+                                        <a th:href="@{'/edit/' + ${usr.uid}}" class="btn btn-success">Edit</a>&nbsp;&nbsp;
+                                        <a th:href="@{'/delete/' + ${usr.uid}}" class="btn btn-danger">Delete</a>
+                                        
+                                    </div>
+                                </td>
+                            </tr>
+                        </tbody>
+                  </table>
+                </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script type="text/javascript" th:src="@{script.js}">
+
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+</body>
+</html>
